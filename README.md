@@ -31,7 +31,7 @@ docker pull javanile/cronicle:latest
 
 ## Running
 ```sh
-docker run --name cronicle --hostname localhost -p 3012:3012 intelliops/cronicle:latest
+docker run -p 3012:3012 javanile/cronicle:latest
 ```
 
 Alternatively with persistent data and logs:
