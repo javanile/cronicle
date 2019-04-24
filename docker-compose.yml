@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+
+  cronicle:
+    build: .
+    env_file: ['.services.env']
+    ports: ['3012:3012']
+    volumes: ['cronicle:/opt/cronicle/data']
+    links: ['mysql']
+
+  mysql:
+    image: mysql:5.7
+    env_file: ['.services.env']
+    volumes: ['mysql:/var/lib/mysql']
+    environment: ['MYSQL_ROOT_PASSWORD=password']
+
+volumes:
+  cronicle:
+  mysql:
