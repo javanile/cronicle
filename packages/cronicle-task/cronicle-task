@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+"use strict";
+
+const program = require('commander')
+    , module0 = require('./')
+
+program
+    .version('0.1.0')
+    .option('-c, --config <path>', 'set config path. defaults to ./.cronicle.yml')
+    .option('-m, --module <module>', 'set current module. defaults to ')
+    .option('-e, --event <event>', 'set current event')
+    .option('-f, --field <field>', 'set current field')
+    .option('-h, --host <host>', 'set current module. defaults to ')
+
+program
+    .command('apply [value]')
+    .description('run setup commands for all envs')
+    //.option("-s, --setup_mode [mode]", "Which setup mode to use")
+    .action(function(value, options) {
+        const host = {
+            masterUrl: 'http://localhost:3012',
+            apiKey: '<your api key>',
+        };
+
+        const module = options.parent.module ? require('cronicle-task-' + options.parent.module) : module0
+        console.log('setup for %s env(s) with %s mode', value, options.parent.module);
+        return module.apply(host, options.parent, options, value)
+    });
+
+program
+    .command('*')
+    .action(function(env){
+        console.log(`Unrecognized command '%s'`, env);
+    });
+
+program.parse(process.argv);

@@ -1,0 +1,29 @@
+{
+  "name": "cronicle-task",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "Francesco Bianco",
+    "email": "bianco@javanile.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/javanile/cronicle.git"
+  },
+  "bin": {
+    "cronicle-task": "./cronicle-task"
+  },
+  "scripts": {
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --recursive"
+  },
+  "dependencies": {
+    "commander": "^2.20.0",
+    "cronicle-client": "^1.0.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
