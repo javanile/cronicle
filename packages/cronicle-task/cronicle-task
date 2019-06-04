@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-"use strict";
+'use strict';
 
 const program = require('commander')
-    , module0 = require('./')
+    , cronicleTaskModule = require('./cronicle-task-module')
 
 program
-    .version('0.1.0')
+    .version('0.0.1')
     .option('-c, --config <path>', 'set config path. defaults to ./.cronicle.yml')
     .option('-m, --module <module>', 'set current module. defaults to ')
     .option('-e, --event <event>', 'set current event')
@@ -18,12 +18,22 @@ program
     .description('run setup commands for all envs')
     //.option("-s, --setup_mode [mode]", "Which setup mode to use")
     .action(function(value, options) {
+        if () {
+
+        }
+
+
+
+        options.parent.path || './.cronicle.yml'
+
+
+
         const host = {
             masterUrl: 'http://localhost:3012',
             apiKey: '<your api key>',
         };
 
-        const module = options.parent.module ? require('cronicle-task-' + options.parent.module) : module0
+        const module = options.parent.module ? require('cronicle-task-' + options.parent.module) : cronicleTaskModule;
         console.log('setup for %s env(s) with %s mode', value, options.parent.module);
         return module.apply(host, options.parent, options, value)
     });
