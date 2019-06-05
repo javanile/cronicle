@@ -19,6 +19,7 @@
   "dependencies": {
     "commander": "^2.20.0",
     "cronicle-client": "^1.0.1",
+    "deepmerge": "^3.2.0",
     "js-yaml": "^3.13.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"

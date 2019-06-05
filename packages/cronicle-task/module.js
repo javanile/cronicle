@@ -1,25 +1,47 @@
 /*!
- * cronicle-task: v0.1.5
+ * cronicle-task 0.0.1
  * Copyright(c) 2019 Javanile
  * MIT Licensed
  */
 
-
-const cc = require('cronicle-client')
+const cc = require('cronicle-client');
 
 module.exports = {
 
-    apply(host, facts, args, value) {
+    /**
+     *
+     * @param app
+     * @param facts
+     * @param args
+     * @param value
+     */
+    apply(app, host, facts, args, value) {
         const client = new cc.CronicleClient(host);
 
-        client.updateEvent({
-            id: 1,
-            enabled: false
-        }).then(() => {
+        const apply = (data) => {
+            let req = { id: data.event.id };
+            let field = facts.field || 'enabled';
 
-        }).catch((err) => {
-            console.log(`Cronicle task: ${err.message}`);
+            req[field] = app.sanitize(field, value);
+
+            client.updateEvent(req).then((data) => {
+                console.log('OK!:', data);
+            }).catch((err) => {
+                console.log(`Cronicle task: ${err.message}`);
+            });
+        };
+
+        client.getEvent({
+            'title': facts.event
+        }).then(apply).catch((err) => {
+            if (err.code !== 'event') {
+                app.error(err.message);
+            }
+            client.getEvent({
+                'id': facts.event
+            }).then(apply).catch((err) => {
+                app.error(err.message);
+            });
         });
     }
-
 };

@@ -1,15 +1,16 @@
-
+## -------------------------------------------------------------
+## This is a sample file that show how to use 'cronicle-task'
+##
+## eg.   $ docker-compose run --rm cronicle start -e <my-event>
+##       $ docker-compose run --rm cronicle stop -e <my-event>
+## -------------------------------------------------------------
 
 hosts:
 
-  production:
+  default:
     master_url: 'http://localhost:3012'
-    api_key: 'kjk'
+    api_key: 'cd56d71c4cc6245bd453a12428ffff94'
 
-  development:
-    master_url: 'asd'
-    api_key: 'asd'
-
-
-
-
+  production:
+    master_url: 'https://cronicle.lan.acme.com:3012'
+    api_key: 'cd56d71c4cc6245bd453a12428ffff94'

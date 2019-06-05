@@ -22,3 +22,12 @@ cronicle-task get -h production -e my-event -f plugin
 ```
 
 
+```sh
+./packages/cronicle-task/cronicle-task apply -e my-event -f enabled false
+```
+
+
+
+
+
+
