@@ -5,7 +5,6 @@ const cc = require('cronicle-client')
 module.exports = {
 
     apply(host, facts, args, value) {
-
         const client = new cc.CronicleClient(host);
 
         client.updateEvent({
@@ -14,7 +13,7 @@ module.exports = {
         }).then(() => {
 
         }).catch((err) => {
-            console.log(`Cronicle error: ${err.code} - ${err.message}`);
+            console.log(`Cronicle task: ${err.message}`);
         });
     }
 

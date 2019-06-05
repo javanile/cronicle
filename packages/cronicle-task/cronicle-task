@@ -2,46 +2,26 @@
 
 'use strict';
 
-const program = require('commander')
-    , cronicleTaskModule = require('./cronicle-task-module')
+const commander = require('commander')
+    , app = require('./');
 
-program
+commander
     .version('0.0.1')
     .option('-c, --config <path>', 'set config path. defaults to ./.cronicle.yml')
     .option('-m, --module <module>', 'set current module. defaults to ')
     .option('-e, --event <event>', 'set current event')
     .option('-f, --field <field>', 'set current field')
-    .option('-h, --host <host>', 'set current module. defaults to ')
+    .option('-h, --host <host>', 'set current module. defaults to ');
 
-program
+commander
     .command('apply [value]')
     .description('run setup commands for all envs')
     //.option("-s, --setup_mode [mode]", "Which setup mode to use")
-    .action(function(value, options) {
-        if () {
+    .action((value, options) => app.apply(value, options));
 
-        }
-
-
-
-        options.parent.path || './.cronicle.yml'
-
-
-
-        const host = {
-            masterUrl: 'http://localhost:3012',
-            apiKey: '<your api key>',
-        };
-
-        const module = options.parent.module ? require('cronicle-task-' + options.parent.module) : cronicleTaskModule;
-        console.log('setup for %s env(s) with %s mode', value, options.parent.module);
-        return module.apply(host, options.parent, options, value)
-    });
-
-program
+commander
     .command('*')
-    .action(function(env){
-        console.log(`Unrecognized command '%s'`, env);
-    });
+    .action(app.commandNotFound);
 
-program.parse(process.argv);
+commander
+    .parse(process.argv);
