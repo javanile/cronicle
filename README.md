@@ -90,6 +90,12 @@ and restart the Docker container:
 ## Web UI credentials
 The default credentials for the web interface are: `admin` / `admin`
 
+## Cronicle Task
+
+```sh
+docker-compose run --rm cronicle apply -m backup-script -h production -e my-event backup.sh
+```
+
 # Reference
 * https://github.com/belsander/docker-cronicle
 * https://github.com/jhuckaby/Cronicle

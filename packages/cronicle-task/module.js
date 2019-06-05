@@ -1,3 +1,8 @@
+/*!
+ * cronicle-task: v0.1.5
+ * Copyright(c) 2019 Javanile
+ * MIT Licensed
+ */
 
 
 const cc = require('cronicle-client')

@@ -1,7 +1,12 @@
+/*!
+ * cronicle-task: v0.1.5
+ * Copyright(c) 2019 Javanile
+ * MIT Licensed
+ */
 
-const cronicleTaskModule = require('./module')
-    ,        yaml = require('js-yaml')
-     ,   fs   = require('fs')
+const fs   = require('fs')
+    , yaml = require('js-yaml')
+    , defaultModule = require('./module')
 
 module.exports = {
 
@@ -17,20 +22,24 @@ module.exports = {
      * @returns {*|void}
      */
     apply: function(value, options) {
-        console.log(this)
         if (!this.loadConfig(options.parent.path)) {
             //return
         }
 
+        let currentHost = options.parent.host || 'default';
 
-        const host = {
-            masterUrl: 'http://localhost:3012',
-            apiKey: '<your api key>',
+        if (typeof this.config.hosts[currentHost] === 'undefined') {
+            this.error('host not found on config file: ' + currentHost);
+        }
+
+        let host = {
+            masterUrl: this.config.hosts[currentHost].master_url,
+            apiKey: this.config.hosts[currentHost].api_key,
         };
 
-        const module = options.parent.module ? require('cronicle-task-' + options.parent.module) : cronicleTaskModule;
-        console.log('setup for %s env(s) with %s mode', value, options.parent.module);
-        return module.apply(host, options.parent, options, value)
+        const currentModule = options.parent.module ? require('cronicle-task-' + options.parent.module) : defaultModule;
+
+        return currentModule.apply(host, options.parent, options, value)
     },
 
     /**
@@ -47,8 +56,14 @@ module.exports = {
         } catch (e) {
             console.log(e);
         }
+    },
 
-
+    /**
+     *
+     */
+    error: function (msg) {
+        console.error(msg)
+        process.exit(1)
     },
 
     /**
