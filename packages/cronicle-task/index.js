@@ -6,7 +6,7 @@
 
 const fs   = require('fs')
     , yaml = require('js-yaml')
-    , deepmerge = require('deepmerge')
+    , merge = require('deepmerge')
     , defaultModule = require('./module')
 
 module.exports = {
@@ -44,7 +44,7 @@ module.exports = {
         let configFile = options.parent.path || './.cronicle.yml';
 
         try {
-            this.config = deepmerge(this.config, yaml.safeLoad(fs.readFileSync(configFile, 'utf8')));
+            this.config = merge(this.config, yaml.safeLoad(fs.readFileSync(configFile, 'utf8')));
         } catch (e) {
             this.error(e.message);
         }
@@ -75,14 +75,20 @@ module.exports = {
     },
 
     /**
+     * Load current Module.
+     *
      *
      */
     loadModule: function(options) {
-        this.loadConfig(options);
+        if (!options.parent.module) {
+            return defaultModule;
+        }
 
-        let currentModule = options.parent.module ? require('cronicle-task-' + options.parent.module) : defaultModule;
+        if (fs.existsSync(options.parent.module) && fs.statSync(options.parent.module).isFile() && options.parent.module.match(/\.js$/i)) {
+            return require(fs.realpathSync(options.parent.module));
+        }
 
-        return currentModule;
+        return require('cronicle-task-' + options.parent.module)
     },
 
     /**
