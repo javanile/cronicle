@@ -2,7 +2,7 @@
 set -e
 
 git add . > /dev/null
-git commit -am "publish"
+git commit -am "$*"
 git push
 
 cd packages/cronicle-task

@@ -1,6 +1,11 @@
 #!/bin/sh
+set -e
 
 echo "---[ Cronicle ]---"
+if [[ ! -w /opt/cronicle/data ]]; then
+    echo ">>> ERROR: Volume '/opt/cronicle/data' not writable by user '$(whoami)' with id '$(id -u)'."
+    exit 1
+fi
 
 STORAGE_CLI=/opt/cronicle/bin/storage-cli.js
 SERVERS_INFO=$(${STORAGE_CLI} get global/servers/0 2> /dev/null)

@@ -9,6 +9,7 @@ const cc = require('cronicle-client');
 module.exports = {
 
     /**
+     * Apply value to event, if event not exists create one.
      *
      * @param app
      * @param facts

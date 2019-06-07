@@ -1,5 +1,9 @@
 FROM intelliops/cronicle:0.8.28-s3
 
-ADD foreground.sh /foreground.sh
+USER root
+ADD docker-*.sh /
+RUN npm install -g cronicle-task
 
-CMD ["sh", "/foreground.sh"]
+USER cronicle
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+CMD ["sh", "/docker-foreground.sh"]

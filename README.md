@@ -96,6 +96,10 @@ The default credentials for the web interface are: `admin` / `admin`
 docker-compose run --rm cronicle apply -m backup-script -h production -e my-event backup.sh
 ```
 
+## Development
+
+docker-compose stop && docker-compose rm -fr && docker-compose build && docker-compose up
+
 # Reference
 * https://github.com/belsander/docker-cronicle
 * https://github.com/jhuckaby/Cronicle
