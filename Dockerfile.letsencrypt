@@ -1,7 +1,7 @@
 FROM intelliops/cronicle:0.8.28-letsencrypt
 
 USER root
-ADD docker-*.sh /
+COPY docker-*.sh /
 RUN npm install -g cronicle-task
 
 USER cronicle

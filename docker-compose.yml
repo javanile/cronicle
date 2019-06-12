@@ -6,7 +6,7 @@ services:
     build: .
     env_file: ['.services.env']
     ports: ['3012:3012']
-    volumes: ['data:/opt/cronicle/data:rw']
+    volumes: ['./data:/opt/cronicle/data:rw']
 
 volumes:
   data:
